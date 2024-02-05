@@ -13,11 +13,19 @@ enum Aegument {
 
 int main(int argc,char* argv[])
 {
-	assert(argc >= NumArgument);
+
+	if (argc<NumArgument)
+	{
+		//使い方を表示する
+		TextureConverter::OutputUsage();
+
+		system("pause");
+		return 0;
+	}
 
 	//COMライブラリの初期化
 	HRESULT hr = CoInitializeEx(nullptr,COINIT_MULTITHREADED);
-	assert(hr);
+	assert(SUCCEEDED(hr));
 
 	//テクスチャコンバータ
 	TextureConverter converter;
@@ -26,7 +34,5 @@ int main(int argc,char* argv[])
 	converter.ConvertTextureWICToDDS(argv[kFilePath]);
 
 	CoUninitialize();
-
-	system("pause");
 	return 0;
 }
